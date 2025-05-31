@@ -1,0 +1,805 @@
+{
+  "version": "7.0",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "WELCOME": ["GROOM_DETAILS"],
+    "GROOM_DETAILS": ["BRIDE_DETAILS"],
+    "BRIDE_DETAILS": ["WITNESS_DETAILS"],
+    "WITNESS_DETAILS": ["CONFIRMATION"],
+    "CONFIRMATION": []
+  },
+  "screens": [
+    {
+      "id": "WELCOME",
+      "title": "Marriage Certificate Application",
+      "data": {
+        "taluka_options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__example__": [
+            { "id": "haveli", "title": "Haveli" },
+            { "id": "pune_city", "title": "Pune City" },
+            { "id": "pimpri_chinchwad", "title": "Pimpri Chinchwad" },
+            { "id": "maval", "title": "Maval" },
+            { "id": "mulshi", "title": "Mulshi" }
+          ]
+        },
+        "village_options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__example__": [
+            { "id": "wadgaon_sheri", "title": "Wadgaon Sheri" },
+            { "id": "kharadi", "title": "Kharadi" },
+            { "id": "wagholi", "title": "Wagholi" },
+            { "id": "lohegaon", "title": "Lohegaon" },
+            { "id": "mundhwa", "title": "Mundhwa" }
+          ]
+        },
+        "marriage_types": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__example__": [
+            { "id": "hindu", "title": "Hindu Marriage" },
+            { "id": "special_marriage", "title": "Special Marriage Act" },
+            { "id": "court_marriage", "title": "Court Marriage" },
+            { "id": "other", "title": "Other" }
+          ]
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "welcome_form",
+            "children": [
+              {
+                "type": "TextHeading",
+                "text": "Marriage Certificate Application"
+              },
+              {
+                "type": "TextBody",
+                "text": "Welcome to the premium marriage certificate application system. Your certificate will be generated instantly with bilingual content (Hindi/English) and government-grade security features. Current time: 2025-05-31 18:03:47 IST."
+              },
+              {
+                "type": "Dropdown",
+                "label": "Select Taluka *",
+                "name": "taluka",
+                "data-source": "${data.taluka_options}",
+                "required": true
+              },
+              {
+                "type": "Dropdown",
+                "label": "Select Village *",
+                "name": "village",
+                "data-source": "${data.village_options}",
+                "required": true
+              },
+              {
+                "type": "DatePicker",
+                "label": "Date of Marriage *",
+                "name": "marriage_date",
+                "required": true,
+                "max-date": "2025-05-31"
+              },
+              {
+                "type": "RadioButtonsGroup",
+                "label": "Type of Marriage *",
+                "name": "marriage_type",
+                "data-source": "${data.marriage_types}",
+                "required": true
+              },
+              {
+                "type": "TextArea",
+                "label": "Marriage Location *",
+                "name": "marriage_location",
+                "helper-text": "Enter complete address where marriage took place",
+                "required": true
+              },
+              {
+                "type": "Footer",
+                "label": "Next: Groom Details",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": { "type": "screen", "name": "GROOM_DETAILS" },
+                  "payload": {
+                    "taluka": "${form.taluka}",
+                    "village": "${form.village}",
+                    "marriage_date": "${form.marriage_date}",
+                    "marriage_type": "${form.marriage_type}",
+                    "marriage_location": "${form.marriage_location}",
+                    "timestamp_ist": "2025-05-31 18:03:47 IST",
+                    "submitted_by": "soft00null"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "GROOM_DETAILS",
+      "title": "Groom Personal Details",
+      "data": {
+        "taluka": {
+          "type": "string",
+          "__example__": "haveli"
+        },
+        "village": {
+          "type": "string",
+          "__example__": "lohegaon"
+        },
+        "marriage_date": {
+          "type": "string",
+          "__example__": "2025-05-31"
+        },
+        "marriage_type": {
+          "type": "string",
+          "__example__": "special_marriage"
+        },
+        "marriage_location": {
+          "type": "string",
+          "__example__": "Kharari"
+        },
+        "timestamp_ist": {
+          "type": "string",
+          "__example__": "2025-05-31 18:03:47 IST"
+        },
+        "submitted_by": {
+          "type": "string",
+          "__example__": "soft00null"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "groom_form",
+            "children": [
+              {
+                "type": "TextHeading",
+                "text": "Groom Personal Details"
+              },
+              {
+                "type": "TextBody",
+                "text": "Please provide accurate details as they will appear on the marriage certificate. Processing time: 2025-05-31 18:03:47 IST."
+              },
+              {
+                "type": "TextInput",
+                "label": "Full Name *",
+                "name": "groom_name",
+                "helper-text": "Enter complete name as per official documents",
+                "required": true
+              },
+              {
+                "type": "DatePicker",
+                "label": "Date of Birth *",
+                "name": "groom_dob",
+                "required": true,
+                "max-date": "2007-05-31"
+              },
+              {
+                "type": "TextInput",
+                "label": "Father's Name *",
+                "name": "groom_father_name",
+                "helper-text": "Enter father's full name",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Mobile Number *",
+                "name": "groom_mobile",
+                "helper-text": "10 digit mobile number",
+                "required": true,
+                "input-type": "number"
+              },
+              {
+                "type": "TextArea",
+                "label": "Complete Address *",
+                "name": "groom_address",
+                "helper-text": "Enter complete address with pin code",
+                "required": true
+              },
+              {
+                "type": "PhotoPicker",
+                "name": "groom_document",
+                "label": "Upload Groom's ID Document *",
+                "description": "Please upload Aadhaar card, PAN card, or other valid government ID document (JPG/PNG, max 5MB)",
+                "photo-source": "camera_gallery",
+                "min-uploaded-photos": 1,
+                "max-uploaded-photos": 1,
+                "max-file-size-kb": 5120
+              },
+              {
+                "type": "Footer",
+                "label": "Next: Bride Details",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "screen_data": "groom_complete",
+                    "taluka": "${data.taluka}",
+                    "village": "${data.village}",
+                    "marriage_date": "${data.marriage_date}",
+                    "marriage_type": "${data.marriage_type}",
+                    "marriage_location": "${data.marriage_location}",
+                    "timestamp_ist": "${data.timestamp_ist}",
+                    "submitted_by": "${data.submitted_by}",
+                    "groom_name": "${form.groom_name}",
+                    "groom_dob": "${form.groom_dob}",
+                    "groom_father_name": "${form.groom_father_name}",
+                    "groom_mobile": "${form.groom_mobile}",
+                    "groom_address": "${form.groom_address}",
+                    "groom_document": "${form.groom_document}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "BRIDE_DETAILS",
+      "title": "Bride Personal Details",
+      "data": {
+        "taluka": {
+          "type": "string",
+          "__example__": "haveli"
+        },
+        "village": {
+          "type": "string",
+          "__example__": "lohegaon"
+        },
+        "marriage_date": {
+          "type": "string",
+          "__example__": "2025-05-31"
+        },
+        "marriage_type": {
+          "type": "string",
+          "__example__": "special_marriage"
+        },
+        "marriage_location": {
+          "type": "string",
+          "__example__": "Kharari"
+        },
+        "timestamp_ist": {
+          "type": "string",
+          "__example__": "2025-05-31 18:03:47 IST"
+        },
+        "submitted_by": {
+          "type": "string",
+          "__example__": "soft00null"
+        },
+        "groom_name": {
+          "type": "string",
+          "__example__": "Vijay"
+        },
+        "groom_dob": {
+          "type": "string",
+          "__example__": "1997-05-31"
+        },
+        "groom_father_name": {
+          "type": "string",
+          "__example__": "Rakesh"
+        },
+        "groom_mobile": {
+          "type": "string",
+          "__example__": "54218400484"
+        },
+        "groom_address": {
+          "type": "string",
+          "__example__": "123, Gandhi Road, Pune"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "bride_form",
+            "children": [
+              {
+                "type": "TextHeading",
+                "text": "Bride Personal Details"
+              },
+              {
+                "type": "TextBody",
+                "text": "Please provide accurate details as they will appear on the marriage certificate. Processing time: 2025-05-31 18:03:47 IST."
+              },
+              {
+                "type": "TextInput",
+                "label": "Full Name *",
+                "name": "bride_name",
+                "helper-text": "Enter complete name as per official documents",
+                "required": true
+              },
+              {
+                "type": "DatePicker",
+                "label": "Date of Birth *",
+                "name": "bride_dob",
+                "required": true,
+                "max-date": "2007-05-31"
+              },
+              {
+                "type": "TextInput",
+                "label": "Father's Name *",
+                "name": "bride_father_name",
+                "helper-text": "Enter father's full name",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Mobile Number *",
+                "name": "bride_mobile",
+                "helper-text": "10 digit mobile number",
+                "required": true,
+                "input-type": "number"
+              },
+              {
+                "type": "TextArea",
+                "label": "Complete Address *",
+                "name": "bride_address",
+                "helper-text": "Enter complete address with pin code",
+                "required": true
+              },
+              {
+                "type": "PhotoPicker",
+                "name": "bride_document",
+                "label": "Upload Bride's ID Document *",
+                "description": "Please upload Aadhaar card, PAN card, or other valid government ID document (JPG/PNG, max 5MB)",
+                "photo-source": "camera_gallery",
+                "min-uploaded-photos": 1,
+                "max-uploaded-photos": 1,
+                "max-file-size-kb": 5120
+              },
+              {
+                "type": "Footer",
+                "label": "Next: Witness Details",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "screen_data": "bride_complete",
+                    "taluka": "${data.taluka}",
+                    "village": "${data.village}",
+                    "marriage_date": "${data.marriage_date}",
+                    "marriage_type": "${data.marriage_type}",
+                    "marriage_location": "${data.marriage_location}",
+                    "timestamp_ist": "${data.timestamp_ist}",
+                    "submitted_by": "${data.submitted_by}",
+                    "groom_name": "${data.groom_name}",
+                    "groom_dob": "${data.groom_dob}",
+                    "groom_father_name": "${data.groom_father_name}",
+                    "groom_mobile": "${data.groom_mobile}",
+                    "groom_address": "${data.groom_address}",
+                    "bride_name": "${form.bride_name}",
+                    "bride_dob": "${form.bride_dob}",
+                    "bride_father_name": "${form.bride_father_name}",
+                    "bride_mobile": "${form.bride_mobile}",
+                    "bride_address": "${form.bride_address}",
+                    "bride_document": "${form.bride_document}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "WITNESS_DETAILS",
+      "title": "Witness Information",
+      "data": {
+        "taluka": {
+          "type": "string",
+          "__example__": "haveli"
+        },
+        "village": {
+          "type": "string",
+          "__example__": "lohegaon"
+        },
+        "marriage_date": {
+          "type": "string",
+          "__example__": "2025-05-31"
+        },
+        "marriage_type": {
+          "type": "string",
+          "__example__": "special_marriage"
+        },
+        "marriage_location": {
+          "type": "string",
+          "__example__": "Kharari"
+        },
+        "timestamp_ist": {
+          "type": "string",
+          "__example__": "2025-05-31 18:03:47 IST"
+        },
+        "submitted_by": {
+          "type": "string",
+          "__example__": "soft00null"
+        },
+        "groom_name": {
+          "type": "string",
+          "__example__": "Vijay"
+        },
+        "bride_name": {
+          "type": "string",
+          "__example__": "Rajani"
+        },
+        "groom_dob": {
+          "type": "string",
+          "__example__": "1997-05-31"
+        },
+        "bride_dob": {
+          "type": "string",
+          "__example__": "1979-05-31"
+        },
+        "groom_father_name": {
+          "type": "string",
+          "__example__": "Rakesh"
+        },
+        "bride_father_name": {
+          "type": "string",
+          "__example__": "Vinod"
+        },
+        "groom_mobile": {
+          "type": "string",
+          "__example__": "54218400484"
+        },
+        "bride_mobile": {
+          "type": "string",
+          "__example__": "4523840785"
+        },
+        "groom_address": {
+          "type": "string",
+          "__example__": "123, Gandhi Road, Pune"
+        },
+        "bride_address": {
+          "type": "string",
+          "__example__": "456, MG Road, Pune"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "witness_form",
+            "children": [
+              {
+                "type": "TextHeading",
+                "text": "Witness Information"
+              },
+              {
+                "type": "TextBody",
+                "text": "Please provide details of two witnesses who were present during the marriage ceremony. Processing time: 2025-05-31 18:03:47 IST."
+              },
+              {
+                "type": "TextSubheading",
+                "text": "Witness 1 Details"
+              },
+              {
+                "type": "TextInput",
+                "label": "Witness 1 Full Name *",
+                "name": "witness_one_name",
+                "helper-text": "Enter complete name",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Witness 1 Mobile Number *",
+                "name": "witness_one_mobile",
+                "helper-text": "10 digit mobile number",
+                "required": true,
+                "input-type": "number"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "Witness 2 Details"
+              },
+              {
+                "type": "TextInput",
+                "label": "Witness 2 Full Name *",
+                "name": "witness_two_name",
+                "helper-text": "Enter complete name",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Witness 2 Mobile Number *",
+                "name": "witness_two_mobile",
+                "helper-text": "10 digit mobile number",
+                "required": true,
+                "input-type": "number"
+              },
+              {
+                "type": "PhotoPicker",
+                "name": "witness_documents",
+                "label": "Upload Witness Documents *",
+                "description": "Please upload 2 photos: 1st photo - Witness 1's ID document, 2nd photo - Witness 2's ID document (JPG/PNG, max 5MB each)",
+                "photo-source": "camera_gallery",
+                "min-uploaded-photos": 2,
+                "max-uploaded-photos": 2,
+                "max-file-size-kb": 5120
+              },
+              {
+                "type": "Footer",
+                "label": "Review & Confirm",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "screen_data": "witness_complete",
+                    "taluka": "${data.taluka}",
+                    "village": "${data.village}",
+                    "marriage_date": "${data.marriage_date}",
+                    "marriage_type": "${data.marriage_type}",
+                    "marriage_location": "${data.marriage_location}",
+                    "timestamp_ist": "${data.timestamp_ist}",
+                    "submitted_by": "${data.submitted_by}",
+                    "groom_name": "${data.groom_name}",
+                    "groom_dob": "${data.groom_dob}",
+                    "groom_father_name": "${data.groom_father_name}",
+                    "groom_mobile": "${data.groom_mobile}",
+                    "groom_address": "${data.groom_address}",
+                    "bride_name": "${data.bride_name}",
+                    "bride_dob": "${data.bride_dob}",
+                    "bride_father_name": "${data.bride_father_name}",
+                    "bride_mobile": "${data.bride_mobile}",
+                    "bride_address": "${data.bride_address}",
+                    "witness_one_name": "${form.witness_one_name}",
+                    "witness_one_mobile": "${form.witness_one_mobile}",
+                    "witness_two_name": "${form.witness_two_name}",
+                    "witness_two_mobile": "${form.witness_two_mobile}",
+                    "witness_documents": "${form.witness_documents}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "CONFIRMATION",
+      "title": "Review & Payment",
+      "terminal": true,
+      "success": true,
+      "data": {
+        "taluka_display": {
+          "type": "string",
+          "__example__": "Haveli"
+        },
+        "village_display": {
+          "type": "string",
+          "__example__": "Lohegaon"
+        },
+        "marriage_date_display": {
+          "type": "string",
+          "__example__": "31st May 2025"
+        },
+        "marriage_type_display": {
+          "type": "string",
+          "__example__": "Special Marriage Act"
+        },
+        "marriage_location_display": {
+          "type": "string",
+          "__example__": "Kharari"
+        },
+        "groom_name_display": {
+          "type": "string",
+          "__example__": "Vijay"
+        },
+        "bride_name_display": {
+          "type": "string",
+          "__example__": "Rajani"
+        },
+        "witness_one_display": {
+          "type": "string",
+          "__example__": "Viju jhite"
+        },
+        "witness_two_display": {
+          "type": "string",
+          "__example__": "Sham bendre"
+        },
+        "groom_mobile_display": {
+          "type": "string",
+          "__example__": "54218400484"
+        },
+        "bride_mobile_display": {
+          "type": "string",
+          "__example__": "4523840785"
+        },
+        "groom_father_name_display": {
+          "type": "string",
+          "__example__": "Rakesh"
+        },
+        "bride_father_name_display": {
+          "type": "string",
+          "__example__": "Vinod"
+        },
+        "groom_dob_display": {
+          "type": "string",
+          "__example__": "31st May 1997"
+        },
+        "bride_dob_display": {
+          "type": "string",
+          "__example__": "31st May 1979"
+        },
+        "documents_uploaded_count": {
+          "type": "number",
+          "__example__": 4
+        },
+        "timestamp_ist": {
+          "type": "string",
+          "__example__": "2025-05-31 18:03:47 IST"
+        },
+        "submitted_by": {
+          "type": "string",
+          "__example__": "soft00null"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "confirmation_form",
+            "children": [
+              {
+                "type": "TextHeading",
+                "text": "Review & Confirm All Details"
+              },
+              {
+                "type": "TextBody",
+                "text": "Please review all the information below carefully. Once submitted, your premium marriage certificate will be generated instantly. Current processing time: 2025-05-31 18:03:47 IST."
+              },
+              {
+                "type": "TextSubheading",
+                "text": "📍 Marriage Information"
+              },
+              {
+                "type": "TextBody",
+                "text": "Taluka: Haveli"
+              },
+              {
+                "type": "TextBody",
+                "text": "Village: Lohegaon"
+              },
+              {
+                "type": "TextBody",
+                "text": "Marriage Date: 31st May 2025"
+              },
+              {
+                "type": "TextBody",
+                "text": "Marriage Type: Special Marriage Act"
+              },
+              {
+                "type": "TextBody",
+                "text": "Location: Kharari"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "👤 Groom Details"
+              },
+              {
+                "type": "TextBody",
+                "text": "Name: Vijay"
+              },
+              {
+                "type": "TextBody",
+                "text": "Father's Name: Rakesh"
+              },
+              {
+                "type": "TextBody",
+                "text": "Date of Birth: 31st May 1997"
+              },
+              {
+                "type": "TextBody",
+                "text": "Mobile: 54218400484"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "👤 Bride Details"
+              },
+              {
+                "type": "TextBody",
+                "text": "Name: Rajani"
+              },
+              {
+                "type": "TextBody",
+                "text": "Father's Name: Vinod"
+              },
+              {
+                "type": "TextBody",
+                "text": "Date of Birth: 31st May 1979"
+              },
+              {
+                "type": "TextBody",
+                "text": "Mobile: 4523840785"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "👥 Witnesses"
+              },
+              {
+                "type": "TextBody",
+                "text": "Witness 1: Viju jhite"
+              },
+              {
+                "type": "TextBody",
+                "text": "Witness 2: Sham bendre"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "📄 Document Upload Summary"
+              },
+              {
+                "type": "TextBody",
+                "text": "✅ Groom's ID document uploaded\n✅ Bride's ID document uploaded\n✅ Witness documents uploaded\n✅ All documents verified"
+              },
+              {
+                "type": "TextSubheading",
+                "text": "💳 Payment & Certificate Information"
+              },
+              {
+                "type": "TextBody",
+                "text": "Application Fee: ₹20\nCertificate Format: Premium PDF (A4, 300 DPI)\nLanguages: Hindi & English\nProcessing: Instant Generation\nTimezone: IST (UTC+05:30)\nSecurity Features: Government-grade watermarks & seals\nProcessed by: soft00null"
+              },
+              {
+                "type": "OptIn",
+                "label": "✅ I agree to pay ₹20 for premium marriage certificate generation",
+                "name": "payment_agreement",
+                "required": true
+              },
+              {
+                "type": "OptIn",
+                "label": "✅ I confirm that all the information provided is true and accurate",
+                "name": "declaration_agreement",
+                "required": true
+              },
+              {
+                "type": "TextBody",
+                "text": "🚀 Your premium marriage certificate will be generated instantly upon payment completion using IST timezone. You will receive download links via SMS and WhatsApp."
+              },
+              {
+                "type": "Footer",
+                "label": "Generate Certificate & Pay ₹20",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "screen_data": "final_submission",
+                    "payment_agreement": "${form.payment_agreement}",
+                    "declaration_agreement": "${form.declaration_agreement}",
+                    "submission_timestamp_ist": "2025-05-31 18:03:47 IST",
+                    "submission_timestamp_utc": "2025-05-31 12:33:47 UTC",
+                    "submitted_by": "soft00null",
+                    "timezone": "IST"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
